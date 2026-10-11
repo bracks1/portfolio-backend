@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Profile {
+  id          String       @id @default(uuid())
+  name        String
+  title       String?
+  description String
+  email       String?
+  location    String?
+  links       SocialLink[]
+  skills      Skill[]
+  experience  Experience[]
+  projects    Project[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model SocialLink {
+  id        String   @id @default(uuid())
+  platform  String
+  url       String
+  profileId String
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+model Skill {
+  id        String   @id @default(uuid())
+  name      String
+  category  String   @default("General")
+  profileId String
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+model Experience {
+  id           String        @id @default(uuid())
+  company      String
+  position     String
+  period       String
+  startDate    String?
+  endDate      String?
+  achievements Achievement[]
+  profileId    String
+  profile      Profile       @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  createdAt    DateTime      @default(now())
+}
+
+model Achievement {
+  id           String     @id @default(uuid())
+  text         String
+  experienceId String
+  experience   Experience @relation(fields: [experienceId], references: [id], onDelete: Cascade)
+}
+
+model Project {
+  id           String              @id @default(uuid())
+  name         String
+  description  String
+  url          String
+  repoUrl      String?
+  liveUrl      String?
+  technologies ProjectTechnology[]
+  profileId    String
+  profile      Profile             @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  createdAt    DateTime            @default(now())
+}
+
+model ProjectTechnology {
+  id        String  @id @default(uuid())
+  name      String
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}

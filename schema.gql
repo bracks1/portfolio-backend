@@ -1,0 +1,121 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+"""Professional work experience and role details"""
+type Experience {
+  """List of key achievements and contributions"""
+  achievements: [String!]!
+
+  """Company or organization name"""
+  company: String!
+
+  """End date in YYYY-MM format or Present"""
+  endDate: String
+  id: ID!
+
+  """Employment period (e.g. 2022 — Present)"""
+  period: String!
+
+  """Job position or role"""
+  position: String!
+
+  """Start date in YYYY-MM format"""
+  startDate: String
+}
+
+"""Specialist digital business card / developer profile"""
+type Profile {
+  createdAt: DateTime!
+
+  """Short bio and summary of expertise"""
+  description: String!
+
+  """Direct contact email"""
+  email: String
+
+  """Work history and key achievements"""
+  experience: [Experience!]!
+  id: ID!
+
+  """Links to GitHub, LinkedIn, Telegram, etc."""
+  links: [SocialLink!]!
+
+  """Location / Work preference"""
+  location: String
+
+  """Full name"""
+  name: String!
+
+  """Featured portfolio projects"""
+  projects: [Project!]!
+
+  """List of technical skills and competencies"""
+  skills: [Skill!]!
+
+  """Professional headline / job title"""
+  title: String
+  updatedAt: DateTime!
+}
+
+"""Portfolio project or software development work"""
+type Project {
+  """Detailed project description"""
+  description: String!
+  id: ID!
+
+  """Live demonstration or production URL"""
+  liveUrl: String
+
+  """Project name"""
+  name: String!
+
+  """Source code repository link"""
+  repoUrl: String
+
+  """Technologies and tools used"""
+  technologies: [String!]!
+
+  """Link to project or repository"""
+  url: String!
+}
+
+type Query {
+  """Get professional work experience history"""
+  experience: [Experience!]!
+
+  """Get digital business card profile with all related information"""
+  profile: Profile
+
+  """Get all portfolio projects"""
+  projects: [Project!]!
+
+  """Get all skills, optionally filtered by category"""
+  skills(category: String): [Skill!]!
+}
+
+"""Technical skill or professional competency"""
+type Skill {
+  """Category (e.g. Backend, Databases, DevOps)"""
+  category: String!
+  id: ID!
+
+  """Skill or technology name"""
+  name: String!
+}
+
+"""Professional links and social resources (GitHub, LinkedIn, etc.)"""
+type SocialLink {
+  id: ID!
+
+  """Platform or service name (e.g., GitHub, LinkedIn, Telegram)"""
+  platform: String!
+
+  """Direct URL to profile or resource"""
+  url: String!
+}

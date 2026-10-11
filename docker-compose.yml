@@ -1,0 +1,18 @@
+services:
+  portfolio-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: portfolio_backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DATABASE_URL=file:/app/data/portfolio.db
+    volumes:
+      - portfolio_data:/app/data
+    restart: unless-stopped
+
+volumes:
+  portfolio_data:
